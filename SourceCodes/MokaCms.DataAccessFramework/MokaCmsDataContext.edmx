@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MokaCmsDataModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MokaCmsDataModelStoreContainer">
+          <EntitySet Name="Members" EntityType="MokaCmsDataModel.Store.Members" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Roles" EntityType="MokaCmsDataModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserRoles" EntityType="MokaCmsDataModel.Store.UserRoles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="MokaCmsDataModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Members_Users" Association="MokaCmsDataModel.Store.FK_Members_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="MokaCmsDataModel.Store.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="MokaCmsDataModel.Store.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="GivenNames" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="Surname" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleDescription" Type="nvarchar" Nullable="false" MaxLength="28" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="64" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="CreatedtBy" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Members_Users">
+          <End Role="Users" Type="MokaCmsDataModel.Store.Users" Multiplicity="1" />
+          <End Role="Members" Type="MokaCmsDataModel.Store.Members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="MokaCmsDataModel.Store.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="MokaCmsDataModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="MokaCmsDataModel.Store.Users" Multiplicity="1" />
+          <End Role="UserRoles" Type="MokaCmsDataModel.Store.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MokaCmsDataModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MokaCmsDataContext" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Members" EntityType="MokaCmsDataModel.Member" />
+          <EntitySet Name="Roles" EntityType="MokaCmsDataModel.Role" />
+          <EntitySet Name="UserRoles" EntityType="MokaCmsDataModel.UserRole" />
+          <EntitySet Name="Users" EntityType="MokaCmsDataModel.User" />
+          <AssociationSet Name="FK_Members_Users" Association="MokaCmsDataModel.FK_Members_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Members" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Roles" Association="MokaCmsDataModel.FK_UserRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_Users" Association="MokaCmsDataModel.FK_UserRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="GivenNames" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MokaCmsDataModel.FK_Members_Users" FromRole="Members" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleDescription" Type="String" Nullable="false" MaxLength="28" Unicode="true" FixedLength="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="MokaCmsDataModel.FK_UserRoles_Roles" FromRole="Roles" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="MokaCmsDataModel.FK_UserRoles_Roles" FromRole="UserRoles" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="MokaCmsDataModel.FK_UserRoles_Users" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="64" Unicode="true" FixedLength="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedtBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Members" Relationship="MokaCmsDataModel.FK_Members_Users" FromRole="Users" ToRole="Members" />
+          <NavigationProperty Name="UserRoles" Relationship="MokaCmsDataModel.FK_UserRoles_Users" FromRole="Users" ToRole="UserRoles" />
+        </EntityType>
+        <Association Name="FK_Members_Users">
+          <End Role="Users" Type="MokaCmsDataModel.User" Multiplicity="1" />
+          <End Role="Members" Type="MokaCmsDataModel.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Members">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Roles">
+          <End Role="Roles" Type="MokaCmsDataModel.Role" Multiplicity="1" />
+          <End Role="UserRoles" Type="MokaCmsDataModel.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_Users">
+          <End Role="Users" Type="MokaCmsDataModel.User" Multiplicity="1" />
+          <End Role="UserRoles" Type="MokaCmsDataModel.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MokaCmsDataModelStoreContainer" CdmEntityContainer="MokaCmsDataContext">
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="MokaCmsDataModel.Member">
+              <MappingFragment StoreEntitySet="Members">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="GivenNames" ColumnName="GivenNames" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MokaCmsDataModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="MokaCmsDataModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MokaCmsDataModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="CreatedtBy" ColumnName="CreatedtBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

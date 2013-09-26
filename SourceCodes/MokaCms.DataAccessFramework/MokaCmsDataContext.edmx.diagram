@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="296cab04bc44482a8b838443445fcc2f" Name="MokaCmsDataContextDiagram">
+        <EntityTypeShape EntityType="MokaCmsDataModel.Member" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MokaCmsDataModel.Role" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MokaCmsDataModel.UserRole" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MokaCmsDataModel.User" Width="1.5" PointX="0.75" PointY="3.5" IsExpanded="true" />
+        <AssociationConnector Association="MokaCmsDataModel.FK_Members_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="MokaCmsDataModel.FK_UserRoles_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="MokaCmsDataModel.FK_UserRoles_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
